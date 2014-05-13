@@ -1,0 +1,4 @@
+[Project]
+Name=Ever4Linux
+Manager=KDevCMakeManager
+VersionControl=kdevgit
