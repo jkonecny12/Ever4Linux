@@ -1,11 +1,29 @@
 project(Ever4Linux)
-cmake_minimum_required(VERSION 2.6)
-find_package(Qt4 REQUIRED)
+cmake_minimum_required(VERSION 2.8.11)
 
-include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Quick REQUIRED)
 
-set(Ever4Linux_SRCS Ever4Linux.cpp main.cpp)
-qt4_automoc(${Ever4Linux_SRCS})
-add_executable(Ever4Linux ${Ever4Linux_SRCS})
-target_link_libraries(Ever4Linux ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
-install(TARGETS Ever4Linux RUNTIME DESTINATION bin)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(SOURCE_DIR src)
+
+set(Ever4Linux_SRCS 
+	${SOURCE_DIR}/main.cpp
+	)
+	
+set(RESOURCES
+	resources.qrc
+	)
+	
+qt5_add_resources(Ever4Linux_RES ${RESOURCES})
+
+add_executable(ever4Linux ${Ever4Linux_SRCS} ${Ever4Linux_RES})
+
+target_link_libraries(ever4Linux Qt5::Core)
+target_link_libraries(ever4Linux Qt5::Widgets)
+target_link_libraries(ever4Linux Qt5::Quick)
+
+install(TARGETS ever4Linux RUNTIME DESTINATION bin)
